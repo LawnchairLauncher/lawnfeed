@@ -2,11 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="amirz.aidlbridge">
 
+    <permission
+        android:name="com.google.android.apps.nexuslauncher.permission.QSB"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="signatureOrSystem" />
+    <uses-permission android:name="com.google.android.apps.nexuslauncher.permission.QSB" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
+
+        <receiver
+            android:name=".PixelLauncherBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.apps.gsa.smartspace.ENABLE_UPDATE" />
+                <action android:name="com.google.android.apps.gsa.smartspace.CLICK_EVENT" />
+                <action android:name="com.google.android.apps.gsa.smartspace.EXPIRE_EVENT" />
+                <action android:name="com.google.android.apps.gsa.smartspace.SETTINGS" />
+                <action android:name="com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE" />
+                <action android:name="com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK" />
+                <action android:name="com.google.android.systemui.smartspace.CLICK_EVENT" />
+                <action android:name="com.google.android.systemui.smartspace.EXPIRE_EVENT" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name=".OPAStatusReceiver"
