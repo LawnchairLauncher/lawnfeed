@@ -10,12 +10,33 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         optimized {
             initWith debug
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        aidlbridge {
+            applicationId 'amirz.aidlbridge'
+            flavorDimensions 'default'
+        }
+
+        pixelbridge {
+            applicationId 'com.google.android.apps.nexuslauncher'
+            flavorDimensions 'default'
+        }
+    }
+
+    sourceSets {
+        pixelbridge {
+            java.srcDirs = ['src/pixel/java']
+            res.srcDirs = ['src/pixel/res']
+            manifest.srcFile 'src/pixel/AndroidManifest.xml'
         }
     }
 }
