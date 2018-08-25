@@ -43,6 +43,11 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:authorities="com.google.android.apps.nexuslauncher.appssearch"
+            android:exported="true"
+            android:name=".AppSearchProvider" />
+
     </application>
 
 </manifest>
