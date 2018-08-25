@@ -13,6 +13,7 @@ import java.util.Set;
 
 public class BridgeService extends Service {
     private static final String TAG = "BridgeService";
+    private static String sLastConnection;
     private final Set<BridgeImpl> mBridges = new HashSet<>();
 
     @Override
@@ -29,11 +30,22 @@ public class BridgeService extends Service {
             Log.e(TAG, "Attempting bind");
             if (bridge.bind(forwardIntent)) {
                 Log.e(TAG, "Bind success");
+
+                // Save package name
+                String authority = caller.getEncodedAuthority();
+                if (authority != null) {
+                    sLastConnection = authority.split(":")[0];
+                }
+
                 mBridges.add(bridge);
                 return bridge.getProxy();
             }
         }
         return null;
+    }
+
+    public static String getLastConnection() {
+        return sLastConnection;
     }
 
     @Override
