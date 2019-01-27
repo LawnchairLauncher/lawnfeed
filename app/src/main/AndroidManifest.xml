@@ -21,6 +21,13 @@
             android:enabled="true"
             android:exported="true" />
 
+        <service android:name="amirz.aidlbridge.BridgeService">
+            <intent-filter>
+                <action android:name="com.android.launcher3.WINDOW_OVERLAY" />
+                <data android:scheme="app" />
+            </intent-filter>
+        </service>
+
         <!-- Required for Lawnfeed updater -->
         <receiver
             android:name=".receivers.UpdateReceiver" />
