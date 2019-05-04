@@ -5,101 +5,89 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
-import android.os.Binder;
 import android.os.IBinder;
-import android.os.Parcel;
+import android.os.Process;
 import android.os.RemoteException;
+import android.text.TextUtils;
 import android.util.Log;
-import android.util.SparseArray;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
-public class BridgeImpl extends Binder implements ServiceConnection {
+class BridgeImpl extends Bridge.Stub {
     private static final String TAG = "BridgeImpl";
 
     private final Context mContext;
-    private final Uri mCaller;
+    private final String mPackage;
+    private final Intent mIntent;
+    private final Set<ServiceConnection> mConnections = new HashSet<>();
 
-    private boolean mConnected;
-    private SparseArray<BridgeCallback> mCallbacks = new SparseArray<>();
-    private IBinder mOverlay;
-
-    public BridgeImpl(Context context, Uri caller) {
+    BridgeImpl(Context context, Intent intent) {
         mContext = context;
-        mCaller = caller;
+
+        Uri caller = intent.getData();
+        String authority = caller.getEncodedAuthority();
+        mPackage = TextUtils.isEmpty(authority) ? "" : authority.split(":")[0];
+
+        mIntent = intent.cloneFilter();
+        mIntent.setPackage("com.google.android.googlequicksearchbox");
+        String auth = context.getPackageName() + ":" + Process.myUid();
+        mIntent.setData(caller.buildUpon().encodedAuthority(auth).build());
     }
 
-    // Client connected
-    public boolean bind(Intent intent) {
-        return mContext.bindService(intent, this,
-                Context.BIND_AUTO_CREATE | Context.BIND_ADJUST_WITH_ACTIVITY);
+    String getPackage() {
+        return mPackage;
     }
 
-    // Server connected
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        Log.w(TAG, "onServiceConnected " + this.toString());
-        mOverlay = service;
-
-        mConnected = true;
-        for (int i = 0; i < mCallbacks.size(); i++) {
-            try {
-                mCallbacks.valueAt(i).onBridgeConnected(this);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
+    public void setCallback(int index, BridgeCallback cb) {
+        connect(cb, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
     }
 
-    // Client disconnected
-    public boolean unbind(Uri caller) {
-        if (Objects.equals(caller, mCaller)) {
-            mContext.unbindService(this);
-            return true;
-        }
-        return false;
-    }
-
-    // Server disconnected
     @Override
-    public void onServiceDisconnected(ComponentName name) {
-        if (mConnected) {
-            Log.w(TAG, "onServiceDisconnected " + this.toString());
+    public void connect(final BridgeCallback cb, int flags) {
+        Log.e(TAG, "Connect request from " + getPackage());
+        ServiceConnection connection = new ServiceConnection() {
+            private boolean mConnected;
 
-            mOverlay = null;
-            mConnected = false;
-
-            for (int i = 0; i < mCallbacks.size(); i++) {
-                try {
-                    mCallbacks.valueAt(i).onBridgeDisconnected();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                if (!mConnected) {
+                    mConnected = true;
+                    Log.e(TAG, "Connected for " + mPackage);
+                    try {
+                        cb.onBridgeConnected(new TransactProxy(service));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
-    }
 
-    // Forward from client to server
-    @Override
-    protected boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
-        return mOverlay == null
-                ? super.onTransact(code, data, reply, flags)
-                : mOverlay.transact(code, data, reply, flags);
-    }
-
-    // AIDL Stub that implements the callback
-    public IBinder getProxy() {
-        return mProxy;
-    }
-
-    private final IBinder mProxy = new Bridge.Stub() {
-        @Override
-        public void setCallback(int index, BridgeCallback cb) throws RemoteException {
-            mCallbacks.put(index, cb);
-            Log.w(TAG, "callbacks " + mCallbacks);
-            if (mConnected) {
-                cb.onBridgeConnected(BridgeImpl.this);
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                if (mConnected) {
+                    mConnected = false;
+                    Log.e(TAG, "Disconnected for " + mPackage);
+                    try {
+                        cb.onBridgeDisconnected();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+        };
+
+        if (mContext.bindService(mIntent, connection, flags)) {
+            mConnections.add(connection);
         }
-    };
+    }
+
+    void disconnect() {
+        Log.e(TAG, "Disconnect " + mPackage + " with " + mConnections.size() + " connections");
+        for (ServiceConnection connection : mConnections) {
+            mContext.unbindService(connection);
+            connection.onServiceDisconnected(null);
+        }
+        mConnections.clear();
+    }
 }
