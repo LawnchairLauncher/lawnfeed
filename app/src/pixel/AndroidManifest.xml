@@ -43,6 +43,11 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".GoogleDestForwarder"
+            android:enabled="true"
+            android:exported="true" />
+
         <provider
             android:authorities="com.google.android.apps.nexuslauncher.appssearch"
             android:exported="true"
