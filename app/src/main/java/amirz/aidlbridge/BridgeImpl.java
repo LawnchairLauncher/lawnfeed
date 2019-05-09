@@ -40,11 +40,6 @@ class BridgeImpl extends Bridge.Stub {
     }
 
     @Override
-    public void setCallback(int index, BridgeCallback cb) {
-        connect(cb, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
-    }
-
-    @Override
     public void connect(final BridgeCallback cb, int flags) {
         Log.e(TAG, "Connect request from " + getPackage());
         ServiceConnection connection = new ServiceConnection() {
