@@ -1,4 +1,4 @@
 package amirz.aidlbridge;
 
-public class OPAStatusReceiver extends Forwarder {
+public class OPAStatusReceiver extends GoogleSourceForwarder {
 }

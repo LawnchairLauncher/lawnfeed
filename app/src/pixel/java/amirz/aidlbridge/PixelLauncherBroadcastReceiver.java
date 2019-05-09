@@ -1,4 +1,4 @@
 package amirz.aidlbridge;
 
-public class PixelLauncherBroadcastReceiver extends Forwarder {
+public class PixelLauncherBroadcastReceiver extends GoogleSourceForwarder {
 }

@@ -7,8 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
 
-public abstract class Forwarder extends BroadcastReceiver {
-    private static final String TAG = "Forwarder";
+public abstract class GoogleSourceForwarder extends BroadcastReceiver {
+    private static final String TAG = "GoogleSourceForwarder";
 
     @Override
     public void onReceive(Context context, Intent intent) {

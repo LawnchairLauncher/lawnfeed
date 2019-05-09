@@ -1,4 +1,4 @@
 package amirz.aidlbridge;
 
-public class SmartspaceBroadcastReceiver extends Forwarder {
+public class SmartspaceBroadcastReceiver extends GoogleSourceForwarder {
 }
