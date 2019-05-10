@@ -6,8 +6,8 @@ android {
         applicationId "amirz.aidlbridge"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
-        versionName "v2"
+        versionCode 3
+        versionName "v" + versionCode
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
