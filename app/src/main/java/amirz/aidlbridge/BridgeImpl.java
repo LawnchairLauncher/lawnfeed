@@ -40,7 +40,7 @@ class BridgeImpl extends Bridge.Stub {
     }
 
     @Override
-    public void connect(final BridgeCallback cb, int flags) {
+    public void bindService(final BridgeCallback cb, int flags) {
         Log.e(TAG, "Connect request from " + getPackage());
         ServiceConnection connection = new ServiceConnection() {
             private boolean mConnected;
@@ -51,7 +51,7 @@ class BridgeImpl extends Bridge.Stub {
                     mConnected = true;
                     Log.e(TAG, "Connected for " + mPackage);
                     try {
-                        cb.onBridgeConnected(new TransactProxy(service));
+                        cb.onServiceConnected(name, new TransactProxy(service));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -64,7 +64,7 @@ class BridgeImpl extends Bridge.Stub {
                     mConnected = false;
                     Log.e(TAG, "Disconnected for " + mPackage);
                     try {
-                        cb.onBridgeDisconnected();
+                        cb.onServiceDisconnected(name);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
