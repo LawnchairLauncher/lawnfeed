@@ -14,7 +14,7 @@ import android.util.Log;
 import java.util.HashSet;
 import java.util.Set;
 
-class BridgeImpl extends Bridge.Stub {
+class BridgeImpl extends IBridge.Stub {
     private static final String TAG = "BridgeImpl";
 
     private final Context mContext;
@@ -40,7 +40,7 @@ class BridgeImpl extends Bridge.Stub {
     }
 
     @Override
-    public void bindService(final BridgeCallback cb, int flags) {
+    public void bindService(final IBridgeCallback cb, int flags) {
         Log.e(TAG, "Connect request from " + getPackage());
         ServiceConnection connection = new ServiceConnection() {
             private boolean mConnected;

@@ -23,7 +23,7 @@ public class BridgeService extends Service {
             if (!mBridges.containsKey(intent)) {
                 mBridges.put(intent, new BridgeImpl(getApplicationContext(), intent) {
                     @Override
-                    public void bindService(final BridgeCallback cb, int flags) {
+                    public void bindService(final IBridgeCallback cb, int flags) {
                         sLastConnection = getPackage();
                         for (BridgeImpl bridge : mBridges.values()) {
                             if (bridge != this) {
