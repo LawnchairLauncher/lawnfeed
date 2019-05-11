@@ -1,7 +1,7 @@
 package amirz.aidlbridge;
 
 interface BridgeCallback {
-    oneway void onBridgeConnected(in IBinder service);
+    oneway void onServiceConnected(in ComponentName name, in IBinder service);
 
-    oneway void onBridgeDisconnected();
+    oneway void onServiceDisconnected(in ComponentName name);
 }
