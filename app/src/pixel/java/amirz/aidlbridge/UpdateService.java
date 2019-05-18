@@ -1,14 +1,8 @@
 package amirz.aidlbridge;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -38,6 +32,7 @@ public class UpdateService extends Service {
                 int pid = Binder.getCallingPid();
                 int oldState = mPidState.get(pid, 0);
                 if ((state & STATE_CREATED) != 0 && (oldState & STATE_CREATED) == 0) {
+                    Log.d(TAG, "Activity created");
                     UpdateChecker.getInstance(UpdateService.this).checkForUpdates();
                 }
                 mPidState.put(pid, state);
