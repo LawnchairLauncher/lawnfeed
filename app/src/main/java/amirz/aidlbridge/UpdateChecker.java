@@ -103,7 +103,8 @@ class UpdateChecker {
 
     private void showNotification(int version) {
         Log.d(TAG, "Showing update notification");
-        mBuilder.setContentTitle(mContext.getString(R.string.update_title, version));
+        mBuilder.setContentTitle(mContext.getString(R.string.update_title, version,
+                mContext.getString(R.string.app_name)));
         mBuilder.setContentText(mContext.getString(R.string.update_desc));
         mManager.notify(0, mBuilder.build());
     }

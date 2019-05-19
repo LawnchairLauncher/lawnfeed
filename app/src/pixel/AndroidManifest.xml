@@ -7,10 +7,6 @@
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="signatureOrSystem" />
     <uses-permission android:name="com.google.android.apps.nexuslauncher.permission.QSB" />
-    
-    <!-- Updater -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -56,30 +52,6 @@
             android:authorities="com.google.android.apps.nexuslauncher.appssearch"
             android:exported="true"
             android:name=".AppSearchProvider" />
-
-        <service
-            android:name=".UpdateService"
-            android:label="@string/plugin_update"
-            android:description="@string/plugin_update_desc">
-            <intent-filter>
-                <action android:name="com.android.launcher3.PLUGIN" />
-            </intent-filter>
-            <meta-data
-                android:name="interface.descriptor"
-                android:value="com.android.launcher3.plugin.activity.IActivityPlugin" />
-            <meta-data
-                android:name="interface.version"
-                android:value="1" />
-        </service>
-
-        <receiver
-            android:name=".BootReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
     </application>
 
