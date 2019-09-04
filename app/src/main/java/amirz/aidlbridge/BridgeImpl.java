@@ -14,6 +14,8 @@ import android.util.Log;
 import java.util.HashSet;
 import java.util.Set;
 
+import ch.deletescape.lawnchair.lawnfeed.bridge.TransactProxy;
+
 class BridgeImpl extends IBridge.Stub {
     private static final String TAG = "BridgeImpl";
 
@@ -51,7 +53,7 @@ class BridgeImpl extends IBridge.Stub {
                     mConnected = true;
                     Log.e(TAG, "Connected for " + mPackage);
                     try {
-                        cb.onServiceConnected(name, new TransactProxy(service));
+                        cb.onServiceConnected(name, new TransactProxy(service, mContext));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }

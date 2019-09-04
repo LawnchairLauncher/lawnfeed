@@ -12,6 +12,7 @@ import ch.deletescape.lawnchair.launcherclient.ILauncherClientProxy
 import ch.deletescape.lawnchair.launcherclient.ILauncherClientProxyCallback
 import ch.deletescape.lawnchair.launcherclient.LauncherClientProxyConnection
 import ch.deletescape.lawnchair.launcherclient.WindowLayoutParams
+import ch.deletescape.lawnchair.lawnfeed.bridge.TransactProxy
 import ch.deletescape.lawnchair.lawnfeed.updater.Updater
 import com.google.android.libraries.launcherclient.ILauncherOverlay
 import com.google.android.libraries.launcherclient.ILauncherOverlayCallback
@@ -166,7 +167,7 @@ class ProxyImpl(val context: Context) : ILauncherClientProxy.Stub() {
     }
 
     override fun init(callback: ILauncherClientProxyCallback): Int {
-        allowed = "ch.deletescape.lawnchair.plah" == callingPackage || "ch.deletescape.lawnchair" == callingPackage
+        allowed = callingPackage in TransactProxy.allowedPackages
         enforcePermission()
         proxyCallback = callback
         Updater.checkUpdate(context)
