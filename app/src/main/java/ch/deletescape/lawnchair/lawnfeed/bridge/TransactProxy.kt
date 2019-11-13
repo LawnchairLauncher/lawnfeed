@@ -1,13 +1,17 @@
 package ch.deletescape.lawnchair.lawnfeed.bridge
 
 import android.content.Context
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Binder
 import android.os.IBinder
 import android.os.Parcel
+import ch.deletescape.lawnchair.lawnfeed.Manifest
 
 class TransactProxy(private val target: IBinder, private val context: Context) : Binder() {
 
-    private val allowed by lazy { callingPackage in allowedPackages }
+    private val permissionGranted by lazy {
+        context.checkCallingPermission(Manifest.permission.CONNECT_SERVICE) == PERMISSION_GRANTED }
+    private val allowed by lazy { permissionGranted || callingPackage in allowedPackages }
     private val callingPackage get() = context.packageManager.getNameForUid(getCallingUid())
 
     override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
