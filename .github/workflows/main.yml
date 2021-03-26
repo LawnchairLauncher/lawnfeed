@@ -1,4 +1,4 @@
-name: Build release APK
+name: Build signed debug APK
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  build-release-apk:
+  build-signed-debug-apk:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -29,13 +29,13 @@ jobs:
           java-version: 8
       - name: Grant execution permission to Gradle Wrapper
         run: chmod +x gradlew
-      - name: Build release APK
-        run: ./gradlew assembleRelease
-      - name: Sign release APK
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
+      - name: Sign debug APK
         uses: r0adkll/sign-android-release@v1
-        id: sign-release-apk
+        id: sign-debug-apk
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: app/build/outputs/apk/debug
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -43,5 +43,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Release APK
-          path: ${{ steps.sign-release-apk.outputs.signedReleaseFile }}
+          name: Signed Debug APK
+          path: ${{ steps.sign-debug-apk.outputs.signedReleaseFile }}
