@@ -25,8 +25,11 @@ class TransactProxy(private val target: IBinder, private val context: Context) :
     }
 
     companion object {
-
         @JvmStatic
-        val allowedPackages = setOf("ch.deletescape.lawnchair.plah", "ch.deletescape.lawnchair")
+        val allowedPackages = setOf(
+                "app.lawnchair",
+                "ch.deletescape.lawnchair.plah",
+                "ch.deletescape.lawnchair"
+        )
     }
 }
