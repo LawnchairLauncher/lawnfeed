@@ -1,4 +1,4 @@
-package ch.deletescape.lawnchair.lawnfeed.receivers;
+package app.lawnchair.lawnfeed.receivers;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -16,9 +16,9 @@ import androidx.core.content.FileProvider;
 
 import java.io.File;
 
-import ch.deletescape.lawnchair.lawnfeed.PermissionActivity;
-import ch.deletescape.lawnchair.lawnfeed.PermissionActivity.*;
-import ch.deletescape.lawnchair.lawnfeed.R;
+import app.lawnchair.lawnfeed.PermissionActivity;
+import app.lawnchair.lawnfeed.PermissionActivity.*;
+import app.lawnchair.lawnfeed.R;
 
 public class UpdateReceiver extends BroadcastReceiver {
     @Override

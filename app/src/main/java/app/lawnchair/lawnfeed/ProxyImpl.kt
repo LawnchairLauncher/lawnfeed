@@ -1,4 +1,4 @@
-package ch.deletescape.lawnchair.lawnfeed
+package app.lawnchair.lawnfeed
 
 import android.content.*
 import android.content.pm.PackageManager
@@ -8,12 +8,12 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.Process
 import android.util.Log
-import ch.deletescape.lawnchair.launcherclient.ILauncherClientProxy
-import ch.deletescape.lawnchair.launcherclient.ILauncherClientProxyCallback
-import ch.deletescape.lawnchair.launcherclient.LauncherClientProxyConnection
-import ch.deletescape.lawnchair.launcherclient.WindowLayoutParams
-import ch.deletescape.lawnchair.lawnfeed.bridge.TransactProxy
-import ch.deletescape.lawnchair.lawnfeed.updater.Updater
+import app.lawnchair.launcherclient.ILauncherClientProxy
+import app.lawnchair.launcherclient.ILauncherClientProxyCallback
+import app.lawnchair.launcherclient.LauncherClientProxyConnection
+import app.lawnchair.launcherclient.WindowLayoutParams
+import app.lawnchair.lawnfeed.bridge.TransactProxy
+import app.lawnchair.lawnfeed.updater.Updater
 import com.google.android.libraries.launcherclient.ILauncherOverlay
 import com.google.android.libraries.launcherclient.ILauncherOverlayCallback
 

@@ -1,4 +1,4 @@
-package ch.deletescape.lawnchair.lawnfeed.updater;
+package app.lawnchair.lawnfeed.updater;
 
 import android.app.Activity;
 import android.app.NotificationChannel;
@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ch.deletescape.lawnchair.lawnfeed.receivers.UpdateReceiver;
-import ch.deletescape.lawnchair.lawnfeed.R;
+import app.lawnchair.lawnfeed.receivers.UpdateReceiver;
+import app.lawnchair.lawnfeed.R;
 
 public class Updater {
     public static final String VERSION_URL = "https://storage.codebucket.de/lawnchair/version.json";

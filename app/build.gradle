@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     signingConfigs {
         travis {
@@ -14,9 +14,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "ch.deletescape.lawnchair.lawnfeed"
+        applicationId "app.lawnchair.lawnfeed"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
 
         if (System.getenv("TRAVIS") == "true") {
             versionCode = Integer.valueOf(System.getenv("TRAVIS_BUILD_NUMBER"))

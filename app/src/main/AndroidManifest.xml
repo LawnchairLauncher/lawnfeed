@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ch.deletescape.lawnchair.lawnfeed">
+    package="app.lawnchair.lawnfeed">
 
     <!-- Let's break some rules... -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,9 +10,9 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <permission
-        android:name="ch.deletescape.lawnchair.lawnfeed.CONNECT_SERVICE"
+        android:name="app.lawnchair.lawnfeed.CONNECT_SERVICE"
         android:label="Connect to Lawnfeed service"
-        android:permissionGroup="ch.deletescape.lawnchair.lawnfeed.CONNECT_SERVICE"
+        android:permissionGroup="app.lawnchair.lawnfeed.CONNECT_SERVICE"
         android:protectionLevel="signature" />
 
     <application
@@ -45,7 +45,7 @@
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="ch.deletescape.lawnchair.lawnfeed.provider"
+            android:authorities="app.lawnchair.lawnfeed.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

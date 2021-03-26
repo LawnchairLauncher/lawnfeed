@@ -1,4 +1,4 @@
-package ch.deletescape.lawnchair.lawnfeed.updater;
+package app.lawnchair.lawnfeed.updater;
 
 import android.content.Context;
 import android.os.AsyncTask;

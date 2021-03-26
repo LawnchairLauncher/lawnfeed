@@ -1,4 +1,4 @@
-package ch.deletescape.lawnchair.lawnfeed.receivers;
+package app.lawnchair.lawnfeed.receivers;
 
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.widget.Toast;
 
-import ch.deletescape.lawnchair.lawnfeed.R;
+import app.lawnchair.lawnfeed.R;
 
 public abstract class DownloadReceiver extends BroadcastReceiver {
     public String mFilename;

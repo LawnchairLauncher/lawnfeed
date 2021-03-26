@@ -14,7 +14,7 @@ import android.util.Log;
 import java.util.HashSet;
 import java.util.Set;
 
-import ch.deletescape.lawnchair.lawnfeed.bridge.TransactProxy;
+import app.lawnchair.lawnfeed.bridge.TransactProxy;
 
 class BridgeImpl extends IBridge.Stub {
     private static final String TAG = "BridgeImpl";

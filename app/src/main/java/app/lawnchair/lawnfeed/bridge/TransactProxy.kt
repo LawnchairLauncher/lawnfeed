@@ -1,11 +1,11 @@
-package ch.deletescape.lawnchair.lawnfeed.bridge
+package app.lawnchair.lawnfeed.bridge
 
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Binder
 import android.os.IBinder
 import android.os.Parcel
-import ch.deletescape.lawnchair.lawnfeed.Manifest
+import app.lawnchair.lawnfeed.Manifest
 
 class TransactProxy(private val target: IBinder, private val context: Context) : Binder() {
 
