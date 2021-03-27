@@ -1,42 +1,39 @@
 apply plugin: 'com.android.application'
 
+final def commitHash = { ->
+    final def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short=7', 'HEAD'
+        standardOutput = stdout
+    }
+    stdout.toString().trim()
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
-
-    signingConfigs {
-        travis {
-            storeFile file("../app/debug.jks")
-            storePassword System.getenv("STORE_PASSWORD")
-            keyAlias "Lawnchair"
-            keyPassword System.getenv("KEY_PASSWORD")
-        }
-    }
 
     defaultConfig {
         applicationId "app.lawnchair.lawnfeed"
         minSdkVersion 21
         targetSdkVersion 29
 
-        if (System.getenv("TRAVIS") == "true") {
-            versionCode = Integer.valueOf(System.getenv("TRAVIS_BUILD_NUMBER"))
-            versionName = System.getenv("MAJOR_MINOR") + "." + System.getenv("TRAVIS_BUILD_NUMBER")
-        } else {
-            versionCode 1
-            versionName "dev"
-        }
+        versionCode 1
+        versionName "3.0+${commitHash()}"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Lawnfeed ${variant.versionName}.apk"
+        }
     }
 
     buildTypes {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if (System.getenv("TRAVIS") == "true" && System.getenv("TRAVIS_EVENT_TYPE") != "pull_request") {
-                signingConfig signingConfigs.travis
-            }
         }
 
         release {
