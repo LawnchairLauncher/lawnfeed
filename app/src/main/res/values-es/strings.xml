@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lawnfeed</string>
+    <string name="update_available_title">Actulización disponible</string>
+    <string name="update_available">Una nueva versión de Lawnfeed está disponible para ser descargada!</string>
+    <string name="downloading_toast">Descargando...</string>
+    <string name="download_file_error">Error al descargar el archivo</string>
+    <string name="lawnfeed_updates">Actualizaciones de Lawnfeed</string>
+</resources>
