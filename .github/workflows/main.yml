@@ -16,7 +16,7 @@ jobs:
         with:
           submodules: true
       - name: Restore Gradle cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -41,7 +41,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Signed Debug APK
           path: ${{ steps.sign-debug-apk.outputs.signedReleaseFile }}
