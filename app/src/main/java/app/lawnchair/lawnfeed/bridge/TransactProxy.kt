@@ -28,6 +28,8 @@ class TransactProxy(private val target: IBinder, private val context: Context) :
         @JvmStatic
         val allowedPackages = setOf(
                 "app.lawnchair",
+                "app.lawnchair.play",
+                "app.lawnchair.nightly",
                 "ch.deletescape.lawnchair.plah",
                 "ch.deletescape.lawnchair"
         )
